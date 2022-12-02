@@ -1,4 +1,5 @@
 # Spaceships Videogame 
+
 A spaceship shooting 2D videogame, with a two game modes and a leaderboard.
 
 ##Infinite Mode
