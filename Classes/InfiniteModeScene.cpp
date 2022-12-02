@@ -207,12 +207,6 @@ void InfiniteModeScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* even
         case EventKeyboard::KeyCode::KEY_A: case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
             leftKeyPressed = true;
             break;
-        /*case EventKeyboard::KeyCode::KEY_W: case EventKeyboard::KeyCode::KEY_UP_ARROW:
-            upKeyPressed = true;
-            break;
-        case EventKeyboard::KeyCode::KEY_S: case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-            downKeyPressed = true;
-            break;*/
         case EventKeyboard::KeyCode::KEY_ESCAPE:
             Director::getInstance()->pushScene(PauseScene::createScene());
             break;
@@ -273,7 +267,7 @@ bool InfiniteModeScene::OnContactBegin(cocos2d::PhysicsContact& contact)
         points += 250;
         score->setString("Score " + std::to_string(points));
     }
-    else if ((1 == aBitMask && 4 == nodeB->getCollisionBitmask()) || (4 == aBitMask && 1 == nodeB->getCollisionBitmask()))//nodeB = personajes
+    else if ((1 == aBitMask && 4 == bBitMask) || (4 == aBitMask && 1 == bBitMask))
     {
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/EnemyDead.mp3");
         nodeA->getNode()->removeFromParent();
