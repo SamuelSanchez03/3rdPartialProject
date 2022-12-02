@@ -391,8 +391,3 @@ void StoryModeScene1::levelCompleted()
 
     Director::getInstance()->replaceScene(LevelCompletedScene::createScene());
 }
-
-void StoryModeScene1::Continue(Ref* pSender)
-{
-    Director::getInstance()->replaceScene(StoryModeScene2::createScene());
-}

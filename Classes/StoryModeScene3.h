@@ -26,6 +26,7 @@ public:
      int playerHearts = 5;
      cocos2d::Vector<cocos2d::Sprite*> heartsSprites;
      bool isBossAttacking = false;
+     int id;
 
     virtual bool init();
 
@@ -53,6 +54,7 @@ public:
     void moveBoss(float dt);
     void moveBackBoss(float dt);
     void levelCompleted();
+    void stopLaser();
     void Continue(Ref* pSender);
 
     CREATE_FUNC(StoryModeScene3);

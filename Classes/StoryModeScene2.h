@@ -25,6 +25,7 @@ public:
      int playerHearts = 5;
      cocos2d::Vector<cocos2d::Sprite*> heartsSprites;
      bool isBossAttacking = false;
+     int id;
 
     virtual bool init();
 
@@ -45,6 +46,7 @@ public:
     void initBossPhysics(cocos2d::Sprite* _b);
     void bossAttack1(float dt);
     void bossAttack2(float dt);
+    void stopLaser();
     void levelCompleted();
     void Continue(Ref* pSender);
 

@@ -104,6 +104,15 @@ bool StoryModeScene2::init()
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Level2Music.mp3", true);
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(.5);
 
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/PlayerShot.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/EnemyDead.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/PlayerHit.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/BossHit.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/LaserAttack.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/BossScream.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/FireBallAttack.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(1);
+
     return true;
 }
 
@@ -162,6 +171,7 @@ void StoryModeScene2::update(float delta)
 
     if (bossLife == 0)
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/BossScream.mp3");
         levelCompleted();
     }
 
@@ -194,6 +204,7 @@ void StoryModeScene2::initBossPhysics(cocos2d::Sprite* _b)
 void StoryModeScene2::initBoss(float dt)
 {
     _boss = Sprite::create("Boss2.png");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/BossScream.mp3");
     initBossPhysics(_boss);
     this->addChild(_boss, 1);
     _boss->runAction(MoveBy::create(2, Point(0, -250)));
@@ -204,6 +215,7 @@ void StoryModeScene2::initBoss(float dt)
 
 void StoryModeScene2::bossAttack1(float dt)
 {
+    id = CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/LaserAttack.mp3", true);
     int angle;
     bool sign = cocos2d::RandomHelper::random_int(0, 1);
     (sign == 0) ? angle = 50 : angle = -50;
@@ -226,8 +238,13 @@ void StoryModeScene2::bossAttack1(float dt)
     auto unstrecht = ScaleBy::create(2, 1, 1 / 50);
     auto rotate1 = RotateBy::create(2, -2*angle);
     auto rotate2 = RotateBy::create(1, 2*angle);
-    auto fullAttack = Sequence::create(strecht, rotate1, rotate2, unstrecht, CallFuncN::create(CC_CALLBACK_1(StoryModeScene2::doRemoveFromParent, this)), nullptr);
+    auto fullAttack = Sequence::create(strecht, rotate1, rotate2, unstrecht, CallFuncN::create(CC_CALLBACK_1(StoryModeScene2::doRemoveFromParent, this)), CallFuncN::create(CC_CALLBACK_0(StoryModeScene2::stopLaser, this)), nullptr);
     laser->runAction(fullAttack);
+}
+
+void StoryModeScene2::stopLaser()
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(id);
 }
 
 void StoryModeScene2::bossAttack2(float dt)
@@ -235,6 +252,7 @@ void StoryModeScene2::bossAttack2(float dt)
     int angle;
     bool sign = cocos2d::RandomHelper::random_int(0, 1);
     (sign == 0) ? angle = 1 : angle = -1;
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/FireBallAttack.mp3");
     fireBall = cocos2d::Sprite::create("FireBall.png");
     fireBall->setScale(.25);
     fireBall->setPosition(Point(_boss->getPosition().x, _boss->getPosition().y-150));
@@ -288,7 +306,7 @@ void StoryModeScene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
             break;
         case EventKeyboard::KeyCode::KEY_SPACE:
             this->addChild(_shot, 1);
-
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/PlayerShot.mp3");
             auto move = Sequence::create(MoveTo::create(3, Point(_shot->getPositionX(), visibleSize.height + _shot->getContentSize().height)), CallFuncN::create(CC_CALLBACK_1(StoryModeScene2::doRemoveFromParent, this)), nullptr);
             _shot->runAction(move);
             break;
@@ -329,6 +347,7 @@ bool StoryModeScene2::OnContactBegin(cocos2d::PhysicsContact& contact)
 
     if ((1 == aBitMask && 2 == bBitMask) || (2 == aBitMask && 1 == bBitMask))
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/EnemyDead.mp3");
         if (nodeA->getNode() != nullptr)
               nodeA->getNode()->removeFromParent();
         nodeB->getNode()->stopAllActions();
@@ -337,6 +356,7 @@ bool StoryModeScene2::OnContactBegin(cocos2d::PhysicsContact& contact)
     }
     else if ((1 == aBitMask && 3 == bBitMask) || (3 == aBitMask && 1 == bBitMask))
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/BossHit.mp3");
         if (nodeA->getNode() != nullptr)
             nodeA->getNode()->removeFromParent();
         nodeB->getNode()->runAction(gotHit);
@@ -344,11 +364,13 @@ bool StoryModeScene2::OnContactBegin(cocos2d::PhysicsContact& contact)
     }
     else if ((0 == aBitMask && 6 == bBitMask) || (6 == aBitMask && 0 == bBitMask))
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/PlayerHit.mp3");
         nodeB->getNode()->removeFromParent();
         playerHearts--;
     }
     else if ((0 == aBitMask && 4 == bBitMask) || (4 == aBitMask && 0 == bBitMask))
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/PlayerHit.mp3");
         playerHearts--;
     }
     else if ((1 == aBitMask && 4 == bBitMask) || (1 == bBitMask && 4 == aBitMask))
@@ -358,11 +380,13 @@ bool StoryModeScene2::OnContactBegin(cocos2d::PhysicsContact& contact)
     }
     else if ((2 == aBitMask && 5 == bBitMask) || (2 == bBitMask && 5 == aBitMask))
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/PlayerHit.mp3");
         playerHearts--;
         nodeA->getNode()->removeFromParent();
     }
     else if (checkPlayerCollision(aBitMask, bBitMask))
     {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/PlayerHit.mp3");
         if (nodeB->getNode() != nullptr && nodeB->getCollisionBitmask() == 2)
             nodeB->getNode()->removeFromParent();
         playerHearts--;
@@ -385,6 +409,7 @@ void StoryModeScene2::endGame()
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     this->unscheduleAllCallbacks();
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
     //if(points > record->getIntegerForKey("Record"))
        // record->setIntegerForKey("Record", points);
     Director::getInstance()->replaceScene(SMDefeatScene::createScene());
@@ -393,11 +418,7 @@ void StoryModeScene2::endGame()
 void StoryModeScene2::levelCompleted()
 {
     this->unscheduleAllCallbacks();
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     Director::getInstance()->replaceScene(LevelCompletedScene::createScene());
-}
-
-void StoryModeScene2::Continue(Ref* pSender)
-{
-    Director::getInstance()->replaceScene(StoryModeScene3::createScene());
 }
