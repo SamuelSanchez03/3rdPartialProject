@@ -13,3 +13,5 @@ In this mode where after a certain amount of kills, a boss will spawn. There are
 ## Leaderboards
 
 Here the player can see the current highest score achieved in the Infinite Mode and the fastest completion of the Story Mode.
+
+## Link to gameplay
