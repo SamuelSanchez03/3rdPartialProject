@@ -476,7 +476,7 @@ void StoryModeScene3::levelCompleted()
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
     int currentRecord = record->getIntegerForKey("StoryRecord");
-    //if (currentRecord == 0 || currentRecord > gameTime)
-        //record->setIntegerForKey("StoryRecord", gameTime);
+    if (currentRecord == 0 || currentRecord > gameTime)
+        record->setIntegerForKey("StoryRecord", gameTime);
     Director::getInstance()->replaceScene(VictoryScene::createScene());
 }

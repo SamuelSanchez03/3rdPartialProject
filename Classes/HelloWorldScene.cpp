@@ -98,7 +98,7 @@ void HelloWorld::StoryMode(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonPressed.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    Director::getInstance()->replaceScene(StoryModeScene3::createScene());
+    Director::getInstance()->replaceScene(StoryModeScene1::createScene());
 }
 
 void HelloWorld::LeaderBoards(Ref* pSender)
