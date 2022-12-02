@@ -97,8 +97,8 @@ bool StoryModeScene3::init()
 
     this->scheduleUpdate();
 
-    //this->schedule(CC_SCHEDULE_SELECTOR(StoryModeScene3::moveEnemy), 1, CC_REPEAT_FOREVER, 1);
-    this->scheduleOnce(CC_SCHEDULE_SELECTOR(StoryModeScene3::initBoss), 2);
+    this->schedule(CC_SCHEDULE_SELECTOR(StoryModeScene3::moveEnemy), 1, CC_REPEAT_FOREVER, 1);
+    this->scheduleOnce(CC_SCHEDULE_SELECTOR(StoryModeScene3::initBoss), 30);
 
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/Level3Music.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Level3Music.mp3", true);
@@ -467,7 +467,7 @@ void StoryModeScene3::endGame()
     CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
     //if(points > record->getIntegerForKey("Record"))
        // record->setIntegerForKey("Record", points);
-    Director::getInstance()->replaceScene(SMDefeatScene::createScene());
+    Director::getInstance()->replaceScene(TransitionFade::create(1, SMDefeatScene::createScene()));
 }
 
 void StoryModeScene3::levelCompleted()
@@ -478,5 +478,5 @@ void StoryModeScene3::levelCompleted()
     int currentRecord = record->getIntegerForKey("StoryRecord");
     if (currentRecord == 0 || currentRecord > gameTime)
         record->setIntegerForKey("StoryRecord", gameTime);
-    Director::getInstance()->replaceScene(VictoryScene::createScene());
+    Director::getInstance()->replaceScene(TransitionFade::create(2, VictoryScene::createScene()));
 }

@@ -91,19 +91,19 @@ void HelloWorld::InfiniteMode(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonPressed.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    Director::getInstance()->pushScene(InfiniteModeScene::createScene());
+    Director::getInstance()->pushScene(TransitionProgressHorizontal::create(1, InfiniteModeScene::createScene()));
 }
 
 void HelloWorld::StoryMode(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonPressed.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    Director::getInstance()->replaceScene(StoryModeScene1::createScene());
+    Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, StoryModeScene1::createScene()));
 }
 
 void HelloWorld::LeaderBoards(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonPressed.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    Director::getInstance()->replaceScene(LeaderBoardsScene::createScene());
+    Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, LeaderBoardsScene::createScene()));
 }

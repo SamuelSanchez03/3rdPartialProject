@@ -85,12 +85,12 @@ void LevelCompletedScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* ev
         sceneNumber++;
         if (sceneNumber == 1)
         {
-            Director::getInstance()->replaceScene(StoryModeScene2::createScene());
+            Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, StoryModeScene2::createScene()));
         }
         else if (sceneNumber == 2)
         {
             sceneNumber = 0;
-            Director::getInstance()->replaceScene(StoryModeScene3::createScene());
+            Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, StoryModeScene3::createScene()));
         }
     }
 }

@@ -82,6 +82,6 @@ void DefeatScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     {
         CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
         this->unscheduleAllCallbacks();
-        Director::getInstance()->replaceScene(HelloWorld::createScene());
+        Director::getInstance()->replaceScene(TransitionFade::create(1, HelloWorld::createScene()));
     }
 }

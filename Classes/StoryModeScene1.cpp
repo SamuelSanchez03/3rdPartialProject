@@ -380,7 +380,7 @@ void StoryModeScene1::endGame()
     CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
     //if(points > record->getIntegerForKey("Record"))
        // record->setIntegerForKey("Record", points);
-    Director::getInstance()->replaceScene(SMDefeatScene::createScene());
+    Director::getInstance()->replaceScene(TransitionFade::create(1, SMDefeatScene::createScene()));
 }
 
 void StoryModeScene1::levelCompleted()
@@ -389,5 +389,5 @@ void StoryModeScene1::levelCompleted()
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
 
-    Director::getInstance()->replaceScene(LevelCompletedScene::createScene());
+    Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, LevelCompletedScene::createScene()));
 }

@@ -312,5 +312,5 @@ void InfiniteModeScene::endGame()
     this->unscheduleAllCallbacks();
     if(points > record->getIntegerForKey("Record"))
         record->setIntegerForKey("Record", points);
-    Director::getInstance()->replaceScene(DefeatScene::createScene());
+    Director::getInstance()->replaceScene(TransitionFade::create(1, DefeatScene::createScene()));
 }

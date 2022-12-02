@@ -65,7 +65,7 @@ void PauseScene::MainMenu(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonPressed.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    Director::getInstance()->replaceScene(HelloWorld::createScene());
+    Director::getInstance()->replaceScene(TransitionTurnOffTiles::create(1, HelloWorld::createScene()));
 }
 
 void PauseScene::Return(Ref* pSender)

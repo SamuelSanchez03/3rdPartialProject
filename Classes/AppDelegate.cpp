@@ -110,7 +110,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto scene = HelloWorld::createScene();
 
     // run
-    director->runWithScene(scene);
+    //director->runWithScene(scene);
+    director->runWithScene(TransitionFade::create(1, scene));
 
     return true;
 }

@@ -75,5 +75,5 @@ void LeaderBoardsScene::Back(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonPressed.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    Director::getInstance()->replaceScene(HelloWorld::createScene());
+    Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, HelloWorld::createScene()));
 }
